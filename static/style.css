@@ -1,0 +1,55 @@
+#board {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+}
+
+.word {
+    display: flex;
+    justify-content: center;
+}
+
+.letter.green {
+    background-color: aquamarine;
+}
+
+.letter.yellow {
+    background-color: yellow;
+}
+
+.letter {
+    width: 50px;
+    height: 50px;
+    border: 1px solid black;
+    margin: 5px;
+    text-align: center;
+    font-size: 24px;
+    text-transform: uppercase;
+    caret-color: transparent;
+}
+
+.letter[required] {
+    /*padding: 5px;*/
+    /*box-sizing: border-box; !* Include padding in width/height calculation *!*/
+
+    border-color: #007bff;
+
+    /* Shadow effect */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); /* Creates a subtle bottom shadow */
+
+    /* Raised effect */
+    /*transform: translateY(0px); !* Moves the input slightly upwards *!*/
+    /*transition: transform 0.1s ease-in-out; !* Smooth transition on focus *!*/
+}
+
+.letter[required]:focus {
+    /*transform: translateY(2px); !* Removes the raised effect on focus *!*/
+    border-color: #005cbf; /* Change border color on focus (optional) */
+}
+
+.submit-btn {
+    margin-top: 10px;
+    padding: 10px 16px;
+}
