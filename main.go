@@ -39,7 +39,7 @@ func main() {
 
 //goland:noinspection GoUnusedParameter
 func handleIndex(w http.ResponseWriter, r *http.Request) {
-	tmpl := template.Must(template.ParseFiles("index.html"))
+	tmpl := template.Must(template.ParseFiles("index.html", "template/board.html"))
 	if err := tmpl.Execute(w, board); err != nil {
 		log.Printf("error executing template: %v", err)
 		http.Error(w, "Internal server error", http.StatusInternalServerError)
@@ -69,7 +69,7 @@ func handleCheck(w http.ResponseWriter, r *http.Request) {
 	fmt.Println(board)
 
 	tmpl := template.Must(template.ParseFiles("template/board.html"))
-	if err := tmpl.Execute(w, board); err != nil {
+	if err := tmpl.ExecuteTemplate(w, "board", board); err != nil {
 		log.Printf("error executing template: %v", err)
 		http.Error(w, "Internal server error", http.StatusInternalServerError)
 		return

@@ -9,22 +9,7 @@
 
 <body>
 
-<div id="board">
-    <form hx-post="/check" hx-target="#board" hx-swap="outerHTML">
-        {{range $wordIndex, $word := .Words}}
-        <div class="word">
-            {{range $letterIndex, $letter := $word.Letters}}
-            <input class="letter {{if .IsCorrect}}green{{end}}" type="text" maxlength="1" autocomplete="off"
-                   {{if ne $.Current $wordIndex}}disabled{{end}}
-                   {{if eq $.Current $wordIndex}}name="{{$letterIndex}}" required {{end}}
-                   data-word="{{$wordIndex}}" data-letter="{{$letterIndex}}" value="{{$letter.Value}}">
-            {{end}}
-        </div>
-        {{end}}
-
-        <button class="submit-btn">Check word</button>
-    </form>
-</div>
+{{template "board" .}}
 
 <script src="static/script.js"></script>
 </body>

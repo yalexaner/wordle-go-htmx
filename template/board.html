@@ -1,3 +1,5 @@
+{{define "board"}}
+
 <div id="board">
     <form hx-post="/check" hx-target="#board" hx-swap="outerHTML">
         {{range $wordIndex, $word := .Words}}
@@ -15,3 +17,5 @@
         <button class="submit-btn">Send</button>
     </form>
 </div>
+
+{{end}}
