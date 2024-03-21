@@ -11,9 +11,8 @@ import (
 var word = [5]string{"w", "o", "r", "d", "e"}
 
 type Letter struct {
-	Value     string
-	IsCorrect bool
-	IsInWord  bool
+	Value    string
+	Position string
 }
 
 type Word struct {
@@ -48,22 +47,29 @@ func handleIndex(w http.ResponseWriter, r *http.Request) {
 }
 
 func handleCheck(w http.ResponseWriter, r *http.Request) {
+	// read the entered word
+	var enteredWord Word
 	for i := range 5 {
 		value := r.FormValue(strconv.Itoa(i))
-		isCorrect := value == word[i]
-		isInWord := false
-		for _, letter := range word {
-			if letter == value {
-				isInWord = true
+		enteredWord.Letters[i] = Letter{Value: value}
+	}
+
+	// check for placed and present letters in the entered word
+	for i, wordLetter := range word {
+		if enteredWord.Letters[i].Value == wordLetter {
+			enteredWord.Letters[i].Position = "placed"
+			continue
+		}
+
+		for j, letter := range enteredWord.Letters {
+			if letter.Value == wordLetter && i != j {
+				enteredWord.Letters[j].Position = "present"
 				break
 			}
 		}
-
-		board.Words[board.Current].Letters[i] = Letter{Value: value, IsCorrect: isCorrect, IsInWord: isInWord}
 	}
 
-	fmt.Println(board)
-
+	board.Words[board.Current] = enteredWord
 	board.Current++
 
 	fmt.Println(board)

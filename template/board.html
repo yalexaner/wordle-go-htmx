@@ -5,11 +5,10 @@
         {{range $wordIndex, $word := .Words}}
         <div class="word">
             {{range $letterIndex, $letter := $word.Letters}}
-            <input class="letter {{if $letter.IsCorrect}}green{{else if $letter.IsInWord}}yellow{{end}}" type="text" maxlength="1" autocomplete="off"
-                   {{if ne $.Current $wordIndex}}disabled{{end}}
-                   {{if eq $.Current $wordIndex}}name="{{$letterIndex}}" required {{end}}
-
-                   data-word="{{$wordIndex}}" data-letter="{{$letterIndex}}" value="{{$letter.Value}}">
+            <input class='letter {{if eq $letter.Position "placed"}}green{{else if eq $letter.Position "present"}}yellow{{end}}'
+                   {{if eq $.Current $wordIndex}}name="{{$letterIndex}}" required{{else}}disabled{{end}}
+                   data-word="{{$wordIndex}}" data-letter="{{$letterIndex}}" value="{{$letter.Value}}"
+                   type="text" maxlength="1" autocomplete="off">
             {{end}}
         </div>
         {{end}}
